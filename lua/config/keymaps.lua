@@ -289,6 +289,17 @@ map("n", "<leader>tw", "<cmd>lua _WTTR_TOGGLE()<cr>", { desc = "Weather" })
 map("n", "<leader>ja", "<cmd>A<CR>", { desc = "Jump to alternative" })
 map("n", "<leader>jv", "<cmd>AV<CR>", { desc = "Jump to alternative in vertical split" })
 
+-- Visual Mappings
+map("v", "<leader>o", ":<C-u>lua require('gpt.chat').send_to_gpt_refactor()<cr>", { desc = "OpenAI Refactor" })
+map("v", "<leader>oc", ":<C-u>lua require('gpt.chat').send_to_gpt_custom()<cr>", { desc = "OpenAI Custom" })
+map("v", "<leader>oC", ":<C-u>lua require('gpt.chat').send_to_gpt_comment()<cr>", { desc = "OpenAI Comment" })
+map("v", "<leader>oD", ":<C-u>lua require('gpt.chat').send_to_gpt_document()<cr>", { desc = "OpenAI Document" })
+map("v", "<leader>ot", ":<C-u>lua require('gpt.chat').send_to_gpt_test()<cr>", { desc = "OpenAI Test" })
+map("v", "<leader>od", ":<C-u>lua require('gpt.chat').send_to_gpt_debug()<cr>", { desc = "OpenAI Debug" })
+map("v", "<leader>oe", ":<C-u>lua require('gpt.chat').send_to_gpt_explain()<cr>", { desc = "OpenAI Explain" })
+map("v", "<leader>oE", ":<C-u>lua require('gpt.chat').send_to_gpt_example()<cr>", { desc = "OpenAI Example" })
+map("v", "<leader>of", ":<C-u>lua require('gpt.chat').flush()<cr>", { desc = "OpenAI Flush" })
+
 vim.cmd([[
 " General
 inoremap ;; <Esc>/<..><Enter>"_c4l
