@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+local Util = require("lazyvim.util")
 
 vim.keymap.del("n", "<leader>fn")
 vim.keymap.del("n", "<leader>fT")
@@ -14,6 +15,8 @@ vim.keymap.del("n", "<leader>wd")
 vim.keymap.del("n", "<leader>ww")
 
 vim.keymap.del("n", "<leader>qq")
+
+vim.keymap.del("n", "S")
 
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
@@ -137,7 +140,9 @@ map("n", "<leader>pb", "<cmd>ReachOpen buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>pm", "<cmd>ReachOpen marks<cr>", { desc = "Marks" })
 
 -- g keymaps (Git)
-map("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", { desc = "Lazygit" })
+map("n", "<leader>gg", function()
+  Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+end, { desc = "Lazygit (root dir)" })
 map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
 map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })
 map("n", "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", { desc = "Blame" })
