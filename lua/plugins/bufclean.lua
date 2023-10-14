@@ -1,0 +1,3 @@
+return {
+  "EthanJWright/bufclean.nvim"
+}
