@@ -6,13 +6,11 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
-    'hrsh7th/cmp-cmdline',
     "saadparwaiz1/cmp_luasnip",
   },
-  opts = function(_, opts)
+  opts = function()
     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
     local cmp = require("cmp")
-    opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "copilot" }, { name = "emoji" } }))
     local defaults = require("cmp.config.default")()
     return {
       completion = {
