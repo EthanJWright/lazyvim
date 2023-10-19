@@ -200,6 +200,7 @@ map("n", "<leader>LS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { des
 map("n", "<leader>lt", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
 
 -- r keymaps (Runner)
+map("n", "<leader>rr", "<cmd>lua _RUN_TEST()<cr>", { desc = "Run & watch test" })
 map(
   "n",
   "<leader>rt",
@@ -258,8 +259,6 @@ map(
   "<cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>",
   { desc = "Grep open files" }
 )
-map("n", "<leader>sr", "<cmd>Telescope lsp_references<cr>", { desc = "Goto References" })
-map("n", "<leader>sR", "<cmd>Telescope registers<cr>", { desc = "Registers" })
 map("n", "<leader>st", "<cmd>Telescope live_grep theme=get_dropdown<cr>", { desc = "Text" })
 map("n", "<leader>sT", "<cmd>Telescope<cr>", { desc = "Telescope" })
 map("n", "<leader>su", "<cmd>Telescope grep_string theme=ivy<CR>", { desc = "Text under cursor" })
@@ -270,18 +269,17 @@ map(
   "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
   { desc = "Colorscheme with Preview" }
 )
-map(
-  "n",
-  "<leader>sw",
-  "<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep For > ')})<CR>",
-  { desc = "Specific string" }
-)
+map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+  desc = "Search current word",
+})
+map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+  desc = "Search current word",
+})
 
 -- t keymaps (Terminal)
 map("n", "<leader>tb", "<cmd>lua _BOTTOM_TOGGLE()<cr>", { desc = "Bottom" })
 map("n", "<leader>tn", "<cmd>lua _NODE_TOGGLE()<cr>", { desc = "Node" })
 map("n", "<leader>td", "<cmd>lua _DUST_TOGGLE()<cr>", { desc = "Dust" })
-map("n", "<leader>tr", "<cmd>lua _RUN_TEST()<cr>", { desc = "Run & watch test" })
 map("n", "<leader>tl", "<cmd>lua _RUN_LAST_TASK()<cr>", { desc = "Run last task" })
 map("n", "<leader>tm", "<cmd>lua _HTOP_TOGGLE()<cr>", { desc = "System Monitor" })
 map("n", "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
