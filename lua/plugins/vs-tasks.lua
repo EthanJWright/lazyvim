@@ -1,3 +1,7 @@
+-- return {
+--   dir = "~/localplug/vs-tasks.nvim",
+--   config = true,
+-- }
 return {
   "EthanJWright/vs-tasks.nvim",
   dependencies = {
