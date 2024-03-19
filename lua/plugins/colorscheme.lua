@@ -8,10 +8,13 @@ return {
   { "navarasu/onedark.nvim" },
   { "ray-x/starry.nvim" },
   { "catppuccin/nvim" },
+  { "rose-pine/neovim", name = "rose-pine" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-mocha",
+      -- colorscheme = "catppuccin-mocha",
+      -- colorscheme = "kanagawa",
+      colorscheme = "rose-pine",
     },
   },
 }

@@ -18,6 +18,11 @@ vim.keymap.del("n", "<leader>qq")
 
 vim.keymap.del("n", "S")
 
+-- https://github.com/neovide/neovide/issues/1263#issuecomment-1972013043
+vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<D-v>", function()
+  vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+end, { noremap = true, silent = true })
+
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
   ---@cast keys LazyKeysHandler
@@ -288,6 +293,16 @@ map("n", "<leader>tw", "<cmd>lua _WTTR_TOGGLE()<cr>", { desc = "Weather" })
 -- j keymaps (Jump)
 map("n", "<leader>ja", "<cmd>A<CR>", { desc = "Jump to alternative" })
 map("n", "<leader>jv", "<cmd>AV<CR>", { desc = "Jump to alternative in vertical split" })
+map("n", "<leader>ji", "<cmd>cd ~/yonomi/interop/<cr><cmd>echo 'Moved to Interop Package'<cr>", { desc = "Interop" })
+map("n", "<leader>jn", "<cmd>cd ~/.config/nvim/<cr><cmd>echo 'Moved to Neovim Config'<cr>", { desc = "Neovim" })
+map(
+  "n",
+  "<leader>jy",
+  "<cmd>cd ~/yonomi/yonomi-platform/<cr><cmd>echo 'Moved to Yonomi Platform'<cr>",
+  { desc = "YonomiPlatform" }
+)
+map("n", "<leader>js", "<cmd>cd ~/.sandbox/<cr><cmd>echo 'Moved to Sandbox'<cr>", { desc = "Sandbox" })
+map("n", "<leader>jk", "<cmd>cd ~/.config/kitty<cr><cmd>echo 'Moved to Kitty'<cr>", { desc = "Kitty" })
 
 -- Visual Mappings
 map("v", "<leader>o", ":<C-u>lua require('gpt.chat').send_to_gpt_refactor()<cr>", { desc = "OpenAI Refactor" })

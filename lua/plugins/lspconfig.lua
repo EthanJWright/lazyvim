@@ -81,18 +81,18 @@ local defaultKeys = {
 -- LSP keymaps
 return {
   "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      sourcekit = {
+        cmd = { "/usr/bin/sourcekit-lsp" },
+      },
+    },
+  },
   init = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     -- for each value in defaultKeys, set keys to that value
     for _, v in ipairs(defaultKeys) do
       keys[#keys + 1] = v
     end
-
-    -- change a keymap
-    -- keys[#keys + 1] = { "K", "<cmd>echo 'hello'<cr>" }
-    -- disable a keymap
-    -- keys[#keys + 1] = { "K", false }
-    -- add a keymap
-    -- keys[#keys + 1] = { "H", "<cmd>echo 'hello'<cr>" }
   end,
 }
