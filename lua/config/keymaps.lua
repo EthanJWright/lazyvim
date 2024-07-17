@@ -8,11 +8,6 @@ vim.keymap.del("n", "<leader>fT")
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del({ "n", "x" }, "j")
 vim.keymap.del({ "n", "x" }, "k")
--- vim.keymap.del("n", "<leader>f")
-vim.keymap.del("n", "<leader>w-")
-vim.keymap.del("n", "<leader>w|")
-vim.keymap.del("n", "<leader>wd")
-vim.keymap.del("n", "<leader>ww")
 
 vim.keymap.del("n", "<leader>qq")
 
@@ -92,7 +87,7 @@ map("n", "<leader>S", "<cmd>call WindowSwap#EasyWindowSwap()<CR>", { desc = "Swa
 
 -- a keymaps (All)
 map("n", "<leader>aw", "<cmd>wa<CR>", { desc = "Save" })
-map("n", "<leader>aq", "<cmd>qa<CR>", { desc = "Quit" })
+map("n", "<leader>qa", "<cmd>qa<CR>", { desc = "Quit" })
 map("n", "<leader>af", "<cmd>qa!<CR>", { desc = "Force Quit" })
 
 -- A keymaps (Attempt)
