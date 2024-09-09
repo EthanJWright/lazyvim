@@ -3,6 +3,7 @@
 -- Add any additional options here
 vim.g.startnormal = 1
 vim.o.swapfile = false
+vim.o.shell = "/opt/homebrew/bin/fish"
 
 -- vim.o.guifont = "JetBrainsMono Nerd Font"
 vim.o.guifont = "Hasklug Nerd Font"

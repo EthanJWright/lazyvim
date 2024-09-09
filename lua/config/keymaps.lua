@@ -67,12 +67,9 @@ map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Top level keymaps
-map("n", "<leader>T", "<cmd>NvimTreeFindFile<cr><cmd>set rnu<cr>", { desc = "NvimTree" })
-map("n", "<leader>M", "<cmd>MinimapToggle<cr>", { desc = "Minimap" })
-map("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Show line diagnostics" })
 map("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save" })
+map("n", "<leader>T", "<cmd>Neotree focus<cr>", { desc = "Focus Neotree" })
 map("n", "<leader>qq", "<cmd>q<CR>", { desc = "Quit" })
-map("n", "<leader>/", "<cmd>CommentToggle<CR>", { desc = "Comment" })
 map("n", "<leader>ff", "<cmd>Telescope find_files theme=get_dropdown<CR>", { desc = "Find File" })
 map("n", "<leader>nn", "<cmd>noh<CR>", { desc = "No Highlight" })
 map("n", "<leader>v", "<cmd>vsplit<CR>", { desc = "Vertical split" })
@@ -168,19 +165,32 @@ map(
   { desc = "Git Worktree" }
 )
 
+-- # Git Diff
+map("n", "<leader>gdd", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diff Current with Main" })
+map("n", "<leader>gdm", "<cmd>DiffviewOpen origin/main...HEAD<cr>", { desc = "Diff with Main" })
+map("n", "<leader>gdh", "<cmd>DiffviewFileHistory<cr>", { desc = "File History" })
+map("n", "<leader>gdc", "<cmd>DiffviewClose<cr>", { desc = "Close Diff" })
+
 -- d keymaps (debug)
-map("n", "<leader>dc", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "Clear all breakpoints" })
-map("n", "<leader>dd", "<cmd>lua require'dap'.continue()<cr>", { desc = "Continue" })
-map("n", "<leader>du", "<cmd>lua require('dapui').toggle()<cr>", { desc = "Toggle UI" })
-map("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Breakpoint" })
-map("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { desc = "Step Over" })
-map("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Step Into" })
-map("n", "<leader>dt", "<cmd>lua require'neotest'.run.run({strategy = 'dap'})<cr>", { desc = "Debug Test" })
+-- map("n", "<leader>dc", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "Clear all breakpoints" })
+-- map("n", "<leader>dd", "<cmd>lua require'dap'.continue()<cr>", { desc = "Continue" })
+-- map("n", "<leader>du", "<cmd>lua require('dapui').toggle()<cr>", { desc = "Toggle UI" })
+-- map("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Breakpoint" })
+-- map("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { desc = "Step Over" })
+-- map("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Step Into" })
+-- map("n", "<leader>dt", "<cmd>lua require'neotest'.run.run({strategy = 'dap'})<cr>", { desc = "Debug Test" })
 
 -- i keymaps (Info)
 map("n", "<leader>is", "<cmd>SymbolsOutline<CR>", { desc = "Symbols" })
 
 -- l keymaps (lsp)
+map(
+  "n",
+  "<leader>lr",
+  "<cmd>lua require('telescope.builtin').lsp_references({ file_ignore_patterns = { '%.spec.ts' } })<cr>",
+  { desc = "Goto Non-Test References" }
+)
+
 map("n", "<leader>ld", "<cmd>Telescope diagnostics<cr>", { desc = "Document Diagnostics" })
 map("n", "<leader>le", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Show line diagnostics" })
 map("n", "<leader>lg", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "Goto Definition" })
