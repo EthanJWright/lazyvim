@@ -42,7 +42,6 @@ local function branches(opts)
             vim.cmd("DiffviewOpen " .. branch_name)
           end)
         end
-        map("i", "<CR>", get_branch)
         map("n", "<CR>", get_branch)
         return true
       end,
