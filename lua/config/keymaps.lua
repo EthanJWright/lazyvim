@@ -198,28 +198,18 @@ map("n", "<leader>gdc", "<cmd>DiffviewClose<cr>", { desc = "Close Diff" })
 -- i keymaps (Info)
 map("n", "<leader>is", "<cmd>SymbolsOutline<CR>", { desc = "Symbols" })
 
--- l keymaps (lsp)
+-- c keymaps (code lsp)
 map(
   "n",
-  "<leader>lr",
+  "<leader>cO",
   "<cmd>lua require('telescope.builtin').lsp_references({ file_ignore_patterns = { '%.spec.ts' } })<cr>",
   { desc = "Goto Non-Test References" }
 )
 
-map("n", "<leader>ld", "<cmd>Telescope diagnostics<cr>", { desc = "Document Diagnostics" })
-map("n", "<leader>le", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Show line diagnostics" })
-map("n", "<leader>lg", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "Goto Definition" })
-map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format { async = true }<cr>", { desc = "Format" })
-map("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" })
-map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", { desc = "Installer Info" })
-map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
-map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
-map("n", "<leader>ll", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", { desc = "Preview Definition" })
-map("n", "<leader>LL", "<cmd>lua vim.lsp.codelens()<cr>", { desc = "Preview Definition" })
-map("n", "<leader>lq", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", { desc = "Quickfix" })
-map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "Document Symbols" })
-map("n", "<leader>LS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })
-map("n", "<leader>lt", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
+map("n", "<leader>cD", "<cmd>Telescope diagnostics<cr>", { desc = "Document Diagnostics" })
+map("n", "<leader>cj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
+map("n", "<leader>ck", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
+map("n", "<leader>ct", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
 
 -- r keymaps (Runner)
 map("n", "<leader>rr", "<cmd>lua _RUN_TEST()<cr>", { desc = "Run & watch test" })
