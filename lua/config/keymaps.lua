@@ -140,8 +140,10 @@ map("n", "<leader>pb", "<cmd>ReachOpen buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>pm", "<cmd>ReachOpen marks<cr>", { desc = "Marks" })
 
 -- d keymaps (DiffView)
-map("n", "<leader>Dm", "<cmd>DiffViewOpen main<cr>", { desc = "Diff Main" })
+map("n", "<leader>Dm", "<cmd>DiffviewOpen origin/main...HEAD<cr>", { desc = "Diff Main" })
 map("n", "<leader>Dc", "<cmd>DiffviewClose<cr>", { desc = "Close Diff" })
+map("n", "<leader>DM", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diff Current with Main" })
+map("n", "<leader>Dh", "<cmd>DiffviewFileHistory<cr>", { desc = "File History" })
 map("n", "<leader>Db", function()
   -- Require the branch module
   local branch = require("custom.branch")
@@ -179,21 +181,6 @@ map(
   "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>",
   { desc = "Git Worktree" }
 )
-
--- # Git Diff
-map("n", "<leader>gdd", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diff Current with Main" })
-map("n", "<leader>gdm", "<cmd>DiffviewOpen origin/main...HEAD<cr>", { desc = "Diff with Main" })
-map("n", "<leader>gdh", "<cmd>DiffviewFileHistory<cr>", { desc = "File History" })
-map("n", "<leader>gdc", "<cmd>DiffviewClose<cr>", { desc = "Close Diff" })
-
--- d keymaps (debug)
--- map("n", "<leader>dc", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "Clear all breakpoints" })
--- map("n", "<leader>dd", "<cmd>lua require'dap'.continue()<cr>", { desc = "Continue" })
--- map("n", "<leader>du", "<cmd>lua require('dapui').toggle()<cr>", { desc = "Toggle UI" })
--- map("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Breakpoint" })
--- map("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { desc = "Step Over" })
--- map("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Step Into" })
--- map("n", "<leader>dt", "<cmd>lua require'neotest'.run.run({strategy = 'dap'})<cr>", { desc = "Debug Test" })
 
 -- i keymaps (Info)
 map("n", "<leader>is", "<cmd>SymbolsOutline<CR>", { desc = "Symbols" })
