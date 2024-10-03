@@ -81,13 +81,6 @@ map("n", "<leader>I", "<cmd>e ~/.config/nvim/init.vim<CR>", { desc = "Open VimRC
 map("n", "<leader>D", "<cmd>TroubleToggle<cr>", { desc = "Diagnostics" })
 map("n", "<leader>N", "<cmd>TodoTrouble<cr>", { desc = "Todo" })
 map("n", "<leader>S", "<cmd>call WindowSwap#EasyWindowSwap()<CR>", { desc = "Swap Windows" })
--- map("n", "<leader>R", function()
---   -- get word under cursor
---   local word = vim.fn.expand("<cword>")
---   -- -- open prompt with :%s/word/ that doesnt close
---   vim.cmd(":%s/" .. word .. "/")
--- end, "Rename under cursor")
-
 map("n", "<leader>R", function()
   local word = vim.fn.expand("<cword>")
   vim.api.nvim_feedkeys(":%s/" .. word .. "/", "n", false)
