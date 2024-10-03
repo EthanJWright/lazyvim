@@ -81,7 +81,17 @@ map("n", "<leader>I", "<cmd>e ~/.config/nvim/init.vim<CR>", { desc = "Open VimRC
 map("n", "<leader>D", "<cmd>TroubleToggle<cr>", { desc = "Diagnostics" })
 map("n", "<leader>N", "<cmd>TodoTrouble<cr>", { desc = "Todo" })
 map("n", "<leader>S", "<cmd>call WindowSwap#EasyWindowSwap()<CR>", { desc = "Swap Windows" })
+-- map("n", "<leader>R", function()
+--   -- get word under cursor
+--   local word = vim.fn.expand("<cword>")
+--   -- -- open prompt with :%s/word/ that doesnt close
+--   vim.cmd(":%s/" .. word .. "/")
+-- end, "Rename under cursor")
 
+map("n", "<leader>R", function()
+  local word = vim.fn.expand("<cword>")
+  vim.api.nvim_feedkeys(":%s/" .. word .. "/", "n", false)
+end, { desc = "Rename under cursor" })
 -- a keymaps (All)
 map("n", "<leader>aw", "<cmd>wa<CR>", { desc = "Save" })
 map("n", "<leader>qa", "<cmd>qa<CR>", { desc = "Quit" })
@@ -135,6 +145,18 @@ map("n", "<leader>bq", "<cmd>BufferClose<cr>", { desc = "Quit buffer" })
 -- p keymaps (Pick)
 map("n", "<leader>pb", "<cmd>ReachOpen buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>pm", "<cmd>ReachOpen marks<cr>", { desc = "Marks" })
+
+-- d keymaps (DiffView)
+map("n", "<leader>Dm", "<cmd>DiffViewOpen main<cr>", { desc = "Diff Main" })
+map("n", "<leader>Dc", "<cmd>DiffviewClose<cr>", { desc = "Close Diff" })
+map("n", "<leader>Db", function()
+  -- Require the branch module
+  local branch = require("custom.branch")
+  local themes = require("telescope.themes")
+
+  -- Call the branches function
+  branch.branches(themes.get_dropdown())
+end, { desc = "Diff branches" })
 
 -- g keymaps (Git)
 map("n", "<leader>gg", function()
