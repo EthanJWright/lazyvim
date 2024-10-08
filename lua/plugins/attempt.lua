@@ -7,6 +7,7 @@ return {
   },
   config = function()
     require("attempt").setup({
+      -- make ~/.attempt and set up typescript in it (npm init, npm i typescript, npx tsc --init)
       dir = vim.fn.expand("~") .. "/.attempt/",
       ext_options = { "lua", "js", "py", "ts" },
       run = {
