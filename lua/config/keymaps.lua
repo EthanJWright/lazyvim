@@ -97,10 +97,10 @@ map("n", "<leader>Ar", "<cmd>lua require('attempt').run()<CR>", { desc = "Run" }
 map("n", "<leader>As", "<cmd>Telescope attempt<CR>", { desc = "Search" })
 
 -- m keymaps (Marks)
-map("n", "<leader>mm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Harpoon" })
+-- map("n", "<leader>mm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Harpoon" })
 map("n", "<leader>ms", "<cmd>Telescope marks theme=get_dropdown<CR>", { desc = "Search" })
-map("n", "<leader>md", "<cmd>lua require('harpoon.mark').clear_all()<CR>", { desc = "Delete All" })
-map("n", "<leader>mt", "<cmd>lua require('harpoon.mark').toggle_file()<CR>", { desc = "Toggle Mark" })
+-- map("n", "<leader>md", "<cmd>lua require('harpoon.mark').clear_all()<CR>", { desc = "Delete All" })
+-- map("n", "<leader>mt", "<cmd>lua require('harpoon.mark').toggle_file()<CR>", { desc = "Toggle Mark" })
 
 -- c keymaps (cmdheight)
 map("n", "<leader>cc", "<cmd>set cmdheight=1<CR>", { desc = "Show" })
@@ -157,30 +157,18 @@ end, { desc = "Diff branches" })
 map("n", "<leader>gg", function()
   Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
 end, { desc = "Lazygit (root dir)" })
-map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
-map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })
+-- map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
+-- map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })
 map("n", "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", { desc = "Blame" })
-map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", { desc = "Preview Hunk" })
-map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", { desc = "Reset Hunk" })
-map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", { desc = "Reset Buffer" })
-map("n", "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", { desc = "Stage Hunk" })
-map("n", "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", { desc = "Undo Stage Hunk" })
-map("n", "<leader>go", "<cmd>Telescope git_status<cr>", { desc = "Open changed file" })
+-- map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", { desc = "Preview Hunk" })
+-- map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", { desc = "Reset Hunk" })
+-- map("n", "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", { desc = "Reset Buffer" })
+-- map("n", "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", { desc = "Stage Hunk" })
+-- map("n", "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", { desc = "Undo Stage Hunk" })
+-- map("n", "<leader>go", "<cmd>Telescope git_status<cr>", { desc = "Open changed file" })
 map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout branch" })
 map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Checkout commit" })
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", { desc = "Diff" })
-map(
-  "n",
-  "<leader>gn",
-  "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>",
-  { desc = "Create Worktree" }
-)
-map(
-  "n",
-  "<leader>gw",
-  "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>",
-  { desc = "Git Worktree" }
-)
 
 -- i keymaps (Info)
 map("n", "<leader>is", "<cmd>SymbolsOutline<CR>", { desc = "Symbols" })
