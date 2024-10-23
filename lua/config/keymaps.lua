@@ -185,6 +185,10 @@ map("n", "<leader>cD", "<cmd>Telescope diagnostics<cr>", { desc = "Document Diag
 map("n", "<leader>cj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 map("n", "<leader>ck", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
 map("n", "<leader>ct", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
+map("n", "<leader>cb", function()
+  vim.cmd("silent make")
+  vim.cmd("copen")
+end, { desc = "Build Typescript and see errors" })
 
 -- r keymaps (Runner)
 map("n", "<leader>rr", "<cmd>lua _RUN_TEST()<cr>", { desc = "Run & watch test" })
