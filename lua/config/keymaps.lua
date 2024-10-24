@@ -6,6 +6,7 @@ local Util = require("lazyvim.util")
 vim.keymap.del("n", "<leader>fn")
 vim.keymap.del("n", "<leader>fT")
 vim.keymap.del("n", "<leader>ft")
+-- TODO: all shift h, l, and m in here
 vim.keymap.del({ "n", "x" }, "j")
 vim.keymap.del({ "n", "x" }, "k")
 
@@ -20,7 +21,6 @@ end, { noremap = true, silent = true })
 
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
   -- do not create the keymap if a lazy keys handler exists
   if not keys.active[keys.parse({ lhs, mode = mode }).id] then
     opts = opts or {}
@@ -192,10 +192,95 @@ map("n", "<leader>cD", "<cmd>Telescope diagnostics<cr>", { desc = "Document Diag
 map("n", "<leader>cj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 map("n", "<leader>ck", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
 map("n", "<leader>ct", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
-map("n", "<leader>cb", function()
-  vim.cmd("silent make")
-  vim.cmd("copen")
+map("n", "<leader>cm", function()
+  vim.notify("TypeScript compilation started...", vim.log.levels.INFO, { title = "Build" })
+
+  local stdout = vim.loop.new_pipe(false)
+  local stderr = vim.loop.new_pipe(false)
+  local output = ""
+
+  local handle
+  handle = vim.loop.spawn("npm", {
+    args = { "run", "tsc" },
+    stdio = { nil, stdout, stderr },
+  }, function(code)
+    stdout:read_stop()
+    stderr:read_stop()
+    stdout:close()
+    stderr:close()
+    handle:close()
+
+    vim.schedule(function()
+      local lines = vim.split(output, "\n")
+      local qf_entries = {}
+
+      for _, line in ipairs(lines) do
+        -- Match TypeScript error format: file(line,col): error TS1234: message
+        local file, lnum, col, msg = line:match("([^%(]+)%((%d+),(%d+)%): (.+)")
+        if file then
+          table.insert(qf_entries, {
+            filename = file,
+            lnum = tonumber(lnum),
+            col = tonumber(col),
+            text = msg,
+            type = "E",
+          })
+        end
+      end
+
+      vim.fn.setqflist(qf_entries)
+      local quickFixCount = #qf_entries
+
+      if quickFixCount > 0 then
+        vim.notify("TypeScript errors found.", vim.log.levels.WARN, { title = "Build" })
+        vim.cmd("copen")
+      else
+        vim.notify("No errors found", vim.log.levels.INFO, { title = "Build" })
+      end
+    end)
+  end)
+
+  stdout:read_start(function(err, data)
+    if err then
+      vim.notify("Error reading stdout: " .. err, vim.log.levels.ERROR, { title = "Build" })
+      return
+    end
+    if data then
+      output = output .. data
+    end
+  end)
+
+  stderr:read_start(function(err, data)
+    if err then
+      vim.notify("Error reading stderr: " .. err, vim.log.levels.ERROR, { title = "Build" })
+      return
+    end
+    if data then
+      output = output .. data
+    end
+  end)
 end, { desc = "Build Typescript and see errors" })
+
+map("n", "<leader>cq", function()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_exists = true
+    end
+  end
+
+  if qf_exists == true then
+    vim.cmd("cclose")
+    return
+  else
+    vim.cmd("copen")
+  end
+
+  -- NOTE: If you want to only open if there are items, switch to this
+  -- if not vim.tbl_isempty(vim.fn.getqflist()) then
+  --   vim.cmd("copen")
+  -- end
+end, { desc = "Toggle quickfix" })
 
 -- r keymaps (Runner)
 map("n", "<leader>rr", "<cmd>lua _RUN_TEST()<cr>", { desc = "Run & watch test" })
@@ -236,9 +321,8 @@ map(
 )
 map("n", "<leader>sb", "<cmd>Telescope git_branches theme=get_dropdown<cr>", { desc = "Checkout branch" })
 map("n", "<leader>sc", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Fuzzy find current" })
-map("n", "<leader>sC", "<cmd>Telescope commands theme=get_dropdown<cr>", { desc = "Commands" })
+map("n", "<leader>;", "<cmd>Telescope commands theme=get_dropdown<cr>", { desc = "Commands" })
 map("n", "<leader>sg", "<cmd>Telescope git_status theme=get_dropdown<cr>", { desc = "Git Status" })
-map("n", "<leader>sh", "<cmd>Telescope command_history theme=get_dropdown<cr>", { desc = "Command history" })
 map("n", "<leader>sl", "<cmd>Telescope diagnostics theme=get_dropdown<cr>", { desc = "Diagnostics" })
 map(
   "n",
