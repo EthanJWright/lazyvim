@@ -15,7 +15,7 @@ return {
   keys = {
     { "<leader>,", vim.NIL },
     { "<leader>/", vim.NIL },
-    { "<leader>:", vim.NIL },
+    -- { "<leader>:", vim.NIL },
     { "<leader><space>", vim.NIL },
     -- find
     { "<leader>fb", vim.NIL },
