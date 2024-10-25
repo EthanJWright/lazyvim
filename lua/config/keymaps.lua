@@ -193,72 +193,8 @@ map("n", "<leader>cj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next
 map("n", "<leader>ck", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
 map("n", "<leader>ct", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
 map("n", "<leader>cm", function()
-  vim.notify("TypeScript compilation started...", vim.log.levels.INFO, { title = "Build" })
-
-  local stdout = vim.loop.new_pipe(false)
-  local stderr = vim.loop.new_pipe(false)
-  local output = ""
-
-  local handle
-  handle = vim.loop.spawn("npm", {
-    args = { "run", "tsc" },
-    stdio = { nil, stdout, stderr },
-  }, function(code)
-    stdout:read_stop()
-    stderr:read_stop()
-    stdout:close()
-    stderr:close()
-    handle:close()
-
-    vim.schedule(function()
-      local lines = vim.split(output, "\n")
-      local qf_entries = {}
-
-      for _, line in ipairs(lines) do
-        -- Match TypeScript error format: file(line,col): error TS1234: message
-        local file, lnum, col, msg = line:match("([^%(]+)%((%d+),(%d+)%): (.+)")
-        if file then
-          table.insert(qf_entries, {
-            filename = file,
-            lnum = tonumber(lnum),
-            col = tonumber(col),
-            text = msg,
-            type = "E",
-          })
-        end
-      end
-
-      vim.fn.setqflist(qf_entries)
-      local quickFixCount = #qf_entries
-
-      if quickFixCount > 0 then
-        vim.notify("TypeScript errors found.", vim.log.levels.WARN, { title = "Build" })
-        vim.cmd("copen")
-      else
-        vim.notify("No errors found", vim.log.levels.INFO, { title = "Build" })
-      end
-    end)
-  end)
-
-  stdout:read_start(function(err, data)
-    if err then
-      vim.notify("Error reading stdout: " .. err, vim.log.levels.ERROR, { title = "Build" })
-      return
-    end
-    if data then
-      output = output .. data
-    end
-  end)
-
-  stderr:read_start(function(err, data)
-    if err then
-      vim.notify("Error reading stderr: " .. err, vim.log.levels.ERROR, { title = "Build" })
-      return
-    end
-    if data then
-      output = output .. data
-    end
-  end)
+  local it_compiles = require("it-compiles")
+  it_compiles.check()
 end, { desc = "Build Typescript and see errors" })
 
 map("n", "<leader>cq", function()
@@ -284,6 +220,20 @@ end, { desc = "Toggle quickfix" })
 
 -- r keymaps (Runner)
 map("n", "<leader>rr", "<cmd>lua _RUN_TEST()<cr>", { desc = "Run & watch test" })
+
+map(
+  "n",
+  "<leader>rj",
+  "<cmd>lua require('telescope').extensions.vstask.jobs(require('telescope.themes').get_dropdown())<cr>",
+  { desc = "Jobs" }
+)
+
+map(
+  "n",
+  "<leader>r;",
+  "<cmd>lua require('telescope').extensions.vstask.jobhistory(require('telescope.themes').get_dropdown())<cr>",
+  { desc = "Job History" }
+)
 map(
   "n",
   "<leader>rt",

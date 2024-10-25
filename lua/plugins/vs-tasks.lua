@@ -1,12 +1,12 @@
--- return {
---   dir = "~/localplug/vs-tasks.nvim",
---   config = true,
--- }
 return {
-  "EthanJWright/vs-tasks.nvim",
-  dependencies = {
-    "nvim-lua/popup.nvim",
-    "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
-  },
+  dir = "~/localplug/vs-tasks.nvim",
+  config = true,
 }
+-- return {
+--   "EthanJWright/vs-tasks.nvim",
+--   dependencies = {
+--     "nvim-lua/popup.nvim",
+--     "nvim-lua/plenary.nvim",
+--     "nvim-telescope/telescope.nvim",
+--   },
+-- }
