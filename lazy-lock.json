@@ -91,6 +91,7 @@
   "venv-selector.nvim": { "branch": "regexp", "commit": "e82594274bf7b54387f9a2abe65f74909ac66e97" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-windowswap": { "branch": "master", "commit": "15db3f697aa1fa696d99fcdc920c90cd2cec855e" },
+  "vs-tasks.nvim": { "branch": "main", "commit": "e21772a2bc628ca69b64b0ae3a06c065bfc598d2" },
   "vscode.nvim": { "branch": "main", "commit": "18097b7aa47538afa780c821309c8b992972d726" },
   "which-key.nvim": { "branch": "main", "commit": "8ab96b38a2530eacba5be717f52e04601eb59326" },
   "wtf.nvim": { "branch": "main", "commit": "16eec1f32c3608bd8519e9e520041fe34201abb0" },

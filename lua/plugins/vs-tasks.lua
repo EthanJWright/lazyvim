@@ -1,10 +1,14 @@
 local use_local = false -- Set this to false to use git source instead
-local git_source = "EthanJWright/vs-tasks.nvim"
+local git_source = nil
 local local_source = "~/localplug/vs-tasks.nvim"
+
+if not use_local then
+  git_source = "EthanJWright/vs-tasks.nvim"
+end
 
 return {
   dir = use_local and local_source or nil,
-  [use_local and 1 or ""] = not use_local and git_source or nil,
+  git_source,
   dependencies = {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
