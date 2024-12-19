@@ -217,13 +217,6 @@ return {
           return string.format([[*{%s}*]], input)
         end,
       },
-      ["!"] = {
-        flag = "glob",
-        cb = function(input)
-          -- exclude files matching pattern
-          return string.format([[!{%s}]], input)
-        end,
-      },
     })
     require("telescope").load_extension("egrepify")
   end,
