@@ -13,6 +13,8 @@ vim.keymap.del({ "n", "x" }, "k")
 vim.keymap.del("n", "<leader>qq")
 
 vim.keymap.del("n", "S")
+vim.keymap.del("n", "<S-h>")
+vim.keymap.del("n", "<S-l>")
 
 -- https://github.com/neovide/neovide/issues/1263#issuecomment-1972013043
 vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<D-v>", function()
