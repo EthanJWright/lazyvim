@@ -6,7 +6,7 @@ return {
   opts = {
     -- add any opts here
     provider = "claude", -- Recommend using Claude
-    auto_suggestions_provider = "copilot",
+    auto_suggestions_provider = "claude",
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",

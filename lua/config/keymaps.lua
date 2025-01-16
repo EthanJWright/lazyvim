@@ -68,19 +68,20 @@ map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Top level keymaps
 map("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save" })
-map("n", "<leader>T", "<cmd>Neotree focus<cr>", { desc = "Focus Neotree" })
+map("n", "<leader>T", "<cmd>Oil<cr>", { desc = "Focus File Nav" })
 map("n", "<leader>qq", "<cmd>q<CR>", { desc = "Quit" })
 map("n", "<leader>ff", "<cmd>Telescope find_files theme=get_dropdown<CR>", { desc = "Find File" })
 map("n", "<leader>nn", "<cmd>noh<CR>", { desc = "No Highlight" })
 map("n", "<leader>v", "<cmd>vsplit<CR>", { desc = "Vertical split" })
 map("n", "<leader>h", "<cmd>split<CR>", { desc = "Horizontal split" })
 map("n", "<leader>F", "<cmd>Telescope egrepify<CR>", { desc = "Find Text" })
-map("n", "<leader>z", "<cmd>ZenMode<cr>", { desc = "ZenMode" })
+map("n", "<leader>z", "<cmd>!f<cr>", { desc = "Tmux Zoom" })
 map("n", "<leader>O", "<cmd>MaximizerToggle<cr>", { desc = "Focus Window" })
 map("n", "<leader>I", "<cmd>e ~/.config/nvim/init.vim<CR>", { desc = "Open VimRC" })
 map("n", "<leader>D", "<cmd>TroubleToggle<cr>", { desc = "Diagnostics" })
 map("n", "<leader>N", "<cmd>TodoTrouble<cr>", { desc = "Todo" })
 map("n", "<leader>S", "<cmd>call WindowSwap#EasyWindowSwap()<CR>", { desc = "Swap Windows" })
+map("n", "<leader>Y", "<cmd>let @+ = expand('%')<CR>", { desc = "Copy file path to clipboard" })
 map("n", "<leader>R", function()
   local word = vim.fn.expand("<cword>")
   vim.api.nvim_feedkeys(":%s/" .. word .. "/", "n", false)
@@ -239,6 +240,13 @@ map(
   "<leader>rt",
   "<cmd>lua require('telescope').extensions.vstask.tasks(require('telescope.themes').get_dropdown())<cr>",
   { desc = "Tasks" }
+)
+
+map(
+  "n",
+  "<leader>rc",
+  "<cmd>lua require('telescope').extensions.vstask.run(require('telescope.themes').get_dropdown())<cr>",
+  { desc = "Run" }
 )
 map(
   "n",

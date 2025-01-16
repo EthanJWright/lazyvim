@@ -1,4 +1,4 @@
-local use_local = false -- Set this to false to use git source instead
+local use_local = true -- Set this to false to use git source instead
 local git_source = nil
 local local_source = "~/localplug/vs-tasks.nvim"
 
