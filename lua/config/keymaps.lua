@@ -128,10 +128,10 @@ map(
 )
 map("n", "<leader>bj", "<cmd>BufferPick<cr>", { desc = "Jump to buffer" })
 map("n", "<leader>bw", "<cmd>BufferWipeout<cr>", { desc = "Wipeout buffer" })
-map("n", "<leader>bn", "<cmd>BufferNext<CR>", { desc = "Next" })
-map("n", "<leader>bp", "<cmd>BufferPrevious<CR>", { desc = "Previous" })
-map("n", "<leader>bs", "<cmd>BufferPin<CR><cmd>lua require('harpoon.mark').toggle_file()<CR>", { desc = "Pin Buffer" })
-map("n", "<leader>bd", "<cmd>BufferCloseAllButCurrentOrPinned<CR>", { desc = "Close unstarred buffers" })
+map("n", "<leader>bn", "<cmd>BufferLineCycleNext<CR>", { desc = "Next" })
+map("n", "<leader>bp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous" })
+map("n", "<leader>bs", "<cmd>BufferLinePick<CR>", { desc = "Pick Buffer" })
+map("n", "<leader>bd", "<cmd>BufferLinePickClose<CR>", { desc = "Close Buffer" })
 map(
   "n",
   "<leader>bb",
