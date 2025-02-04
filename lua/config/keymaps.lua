@@ -78,7 +78,6 @@ map("n", "<leader>v", "<cmd>vsplit<CR>", { desc = "Vertical split" })
 map("n", "<leader>h", "<cmd>split<CR>", { desc = "Horizontal split" })
 map("n", "<leader>F", "<cmd>Telescope egrepify<CR>", { desc = "Find Text" })
 map("n", "<leader>z", "<cmd>WindowsMaximize<cr>", { desc = "Zoom" })
-map("n", "<leader>O", "<cmd>MaximizerToggle<cr>", { desc = "Focus Window" })
 map("n", "<leader>I", "<cmd>e ~/.config/nvim/init.vim<CR>", { desc = "Open VimRC" })
 map("n", "<leader>D", "<cmd>TroubleToggle<cr>", { desc = "Diagnostics" })
 map("n", "<leader>N", "<cmd>TodoTrouble<cr>", { desc = "Todo" })
@@ -106,6 +105,21 @@ map("n", "<leader>Ac", function()
   local attempts = require("custom.attempts")
   attempts.clear_attempts()
 end, { desc = "Clear all attempts" })
+
+local function create_tmp_file(extension)
+  local random_name = require("snip-functions.random_name")
+  local tmp_file = "/tmp/" .. random_name() .. extension
+  vim.notify("Creating temporary " .. extension .. " file: " .. tmp_file, vim.log.levels.INFO)
+  vim.cmd("edit " .. tmp_file)
+end
+
+map("n", "<leader>Aj", function()
+  create_tmp_file(".json")
+end, { desc = "Temporary JSON" })
+
+map("n", "<leader>At", function()
+  create_tmp_file(".txt")
+end, { desc = "Temporary Text" })
 
 -- m keymaps (Marks)
 -- map("n", "<leader>mm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Harpoon" })
