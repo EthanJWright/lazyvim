@@ -78,9 +78,6 @@ return {
       local pickers = require("telescope.pickers")
       local sorters = require("telescope.sorters")
       local state = require("telescope.actions.state")
-      local previewers = require("telescope.previewers")
-      local builtin = require("telescope.builtin")
-      local action_layout = require("telescope.actions.layout")
       local before = require("before")
 
       -- edit table locations look like this:
@@ -98,16 +95,6 @@ return {
         for i = 2, #edit_locations do
           local location = edit_locations[i]
           local line = vim.api.nvim_buf_get_lines(location.bufnr, location.line - 1, location.line, false)[1]
-          if line == text then
-            return location
-          end
-        end
-      end
-
-      local function get_edit_preview_by_text(text, edit_locations)
-        for i = 2, #edit_locations do
-          local location = edit_locations[i]
-          local line = vim.api.nvim_buf_get_lines(location.bufnr, location.line - 10, location.line + 10, false)[1]
           if line == text then
             return location
           end

@@ -9,6 +9,7 @@ end
 return {
   dir = use_local and local_source or nil,
   git_source,
+  event = "VeryLazy",
   dependencies = {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",

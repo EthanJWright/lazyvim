@@ -6,6 +6,7 @@ local Util = require("lazyvim.util")
 vim.keymap.del("n", "<leader>fn")
 vim.keymap.del("n", "<leader>fT")
 vim.keymap.del("n", "<leader>ft")
+vim.keymap.del("n", "<leader>l")
 -- TODO: all shift h, l, and m in here
 vim.keymap.del({ "n", "x" }, "j")
 vim.keymap.del({ "n", "x" }, "k")
@@ -70,7 +71,7 @@ map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Top level keymaps
 map("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save" })
-map("n", "<leader>T", "<cmd>Oil<cr>", { desc = "Focus File Nav" })
+map("n", "<leader>j", "<cmd>Oil<cr>", { desc = "Focus File Nav" })
 map("n", "<leader>qq", "<cmd>q<CR>", { desc = "Quit" })
 map("n", "<leader>ff", "<cmd>Telescope find_files theme=get_dropdown<CR>", { desc = "Find File" })
 map("n", "<leader>nn", "<cmd>noh<CR>", { desc = "No Highlight" })
@@ -121,18 +122,31 @@ map("n", "<leader>At", function()
   create_tmp_file(".txt")
 end, { desc = "Temporary Text" })
 
+-- C keymaps (conform)
+map("n", "<leader>Cj", function()
+  -- vim.cmd([[%s/\n//g]]) -- \n removed
+  vim.cmd([[%s/\"/"/g]]) -- \" -> "
+end, { desc = "Conform JSON" })
+
+map("n", "<leader>Ce", function()
+  vim.cmd("silent! %s/ Object //g")
+  vim.cmd("silent! %s/ Array //g")
+end, { desc = "Conform Expect" })
+
 -- m keymaps (Marks)
 -- map("n", "<leader>mm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", { desc = "Harpoon" })
 map("n", "<leader>ms", "<cmd>Telescope marks theme=get_dropdown<CR>", { desc = "Search" })
 -- map("n", "<leader>md", "<cmd>lua require('harpoon.mark').clear_all()<CR>", { desc = "Delete All" })
 -- map("n", "<leader>mt", "<cmd>lua require('harpoon.mark').toggle_file()<CR>", { desc = "Toggle Mark" })
 
+map("n", "<leader>t;", function()
+  local neotest = require("neotest")
+  neotest.run.run({ strategy = "dap", adapter = "jest" })
+end, { desc = "Debug Nearest!" })
+
 -- c keymaps (cmdheight)
 map("n", "<leader>cc", "<cmd>set cmdheight=1<CR>", { desc = "Show" })
 map("n", "<leader>ch", "<cmd>set cmdheight=0<CR>", { desc = "Hide" })
-
--- o keymaps (OpenAI)
-map("n", "<leader>oo", "<cmd>lua require('gpt.lua').send_to_gpt()<CR>", { desc = "Send Visual" })
 
 -- b keymaps (Buffers)
 map(
@@ -174,12 +188,22 @@ map("n", "<leader>Db", function()
   branch.branches(themes.get_dropdown())
 end, { desc = "Diff branches" })
 
+map("n", "<leader>dd", function()
+  local dap = require("custom.dap")
+  dap.run_jest_debug()
+end, { desc = "Continue - nopick config" })
+
+map("n", "<leader>td", function()
+  local dap = require("custom.dap")
+  dap.run_jest_debug_current_test()
+end, { desc = "Debug Current" })
+
 -- g keymaps (Git)
 map("n", "<leader>gg", function()
   Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
 end, { desc = "Lazygit (root dir)" })
--- map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
--- map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })
+map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
+map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })
 map("n", "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", { desc = "Blame" })
 -- map("n", "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", { desc = "Preview Hunk" })
 -- map("n", "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", { desc = "Reset Hunk" })
@@ -191,8 +215,7 @@ map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout bra
 map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Checkout commit" })
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", { desc = "Diff" })
 
--- i keymaps (Info)
-map("n", "<leader>is", "<cmd>SymbolsOutline<CR>", { desc = "Symbols" })
+map("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Outline" })
 
 -- c keymaps (code lsp)
 map(
@@ -241,13 +264,6 @@ map(
   "<cmd>lua require('telescope').extensions.vstask.jobs(require('telescope.themes').get_dropdown())<cr>",
   { desc = "Jobs" }
 )
-
-map(
-  "n",
-  "<leader>r;",
-  "<cmd>lua require('telescope').extensions.vstask.jobhistory(require('telescope.themes').get_dropdown())<cr>",
-  { desc = "Job History" }
-)
 map(
   "n",
   "<leader>rt",
@@ -258,27 +274,17 @@ map(
 map(
   "n",
   "<leader>rc",
-  "<cmd>lua require('telescope').extensions.vstask.run(require('telescope.themes').get_dropdown())<cr>",
-  { desc = "Run" }
+  "<cmd>lua require('telescope').extensions.vstask.cleanup_completed_jobs()<cr>",
+  { desc = "Clean Completed" }
 )
+
 map(
   "n",
   "<leader>ri",
   "<cmd>lua require('telescope').extensions.vstask.inputs(require('telescope.themes').get_dropdown())<cr>",
   { desc = "Inputs" }
 )
-map(
-  "n",
-  "<leader>rh",
-  "<cmd>lua require('telescope').extensions.vstask.history(require('telescope.themes').get_dropdown())<cr>",
-  { desc = "History" }
-)
-map(
-  "n",
-  "<leader>rl",
-  "<cmd>lua require('telescope').extensions.vstask.launch(require('telescope.themes').get_dropdown())<cr>",
-  { desc = "Launch" }
-)
+map("n", "<leader>rd", "<cmd>lua require('telescope').extensions.vstask.clear_inputs()<cr>", { desc = "Clear Inputs" })
 
 -- y keymaps (Copy)
 map("n", "<leader>yp", "<cmd>let @+ = expand('%')<cr>", { desc = "Copy file path" })
@@ -329,31 +335,17 @@ map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
   desc = "Search current word",
 })
 
--- t keymaps (Terminal)
-map("n", "<leader>tb", "<cmd>lua _BOTTOM_TOGGLE()<cr>", { desc = "Bottom" })
-map("n", "<leader>tn", "<cmd>lua _NODE_TOGGLE()<cr>", { desc = "Node" })
-map("n", "<leader>td", "<cmd>lua _DUST_TOGGLE()<cr>", { desc = "Dust" })
-map("n", "<leader>tl", "<cmd>lua _RUN_LAST_TASK()<cr>", { desc = "Run last task" })
-map("n", "<leader>tm", "<cmd>lua _HTOP_TOGGLE()<cr>", { desc = "System Monitor" })
-map("n", "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
-map("n", "<leader>tf", "<cmd>ToggleTerm<CR>", { desc = "Floating" })
-map("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
-map("n", "<leader>tv", "<cmd>vsplit <cr>|<cmd> term<cr>i", { desc = "Vertical" })
-map("n", "<leader>tw", "<cmd>lua _WTTR_TOGGLE()<cr>", { desc = "Weather" })
-
--- j keymaps (Jump)
-map("n", "<leader>ja", "<cmd>A<CR>", { desc = "Jump to alternative" })
-map("n", "<leader>jv", "<cmd>AV<CR>", { desc = "Jump to alternative in vertical split" })
-map("n", "<leader>ji", "<cmd>cd ~/yonomi/interop/<cr><cmd>echo 'Moved to Interop Package'<cr>", { desc = "Interop" })
-map("n", "<leader>jn", "<cmd>cd ~/.config/nvim/<cr><cmd>echo 'Moved to Neovim Config'<cr>", { desc = "Neovim" })
-map(
-  "n",
-  "<leader>jy",
-  "<cmd>cd ~/yonomi/yonomi-platform/<cr><cmd>echo 'Moved to Yonomi Platform'<cr>",
-  { desc = "YonomiPlatform" }
-)
-map("n", "<leader>js", "<cmd>cd ~/.sandbox/<cr><cmd>echo 'Moved to Sandbox'<cr>", { desc = "Sandbox" })
-map("n", "<leader>jk", "<cmd>cd ~/.config/kitty<cr><cmd>echo 'Moved to Kitty'<cr>", { desc = "Kitty" })
+-- T keymaps (Terminal)
+map("n", "<leader>Tb", "<cmd>lua _BOTTOM_TOGGLE()<cr>", { desc = "Bottom" })
+map("n", "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", { desc = "Node" })
+map("n", "<leader>Td", "<cmd>lua _DUST_TOGGLE()<cr>", { desc = "Dust" })
+map("n", "<leader>Tl", "<cmd>lua _RUN_LAST_TASK()<cr>", { desc = "Run last task" })
+map("n", "<leader>Tm", "<cmd>lua _HTOP_TOGGLE()<cr>", { desc = "System Monitor" })
+map("n", "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
+map("n", "<leader>Tf", "<cmd>ToggleTerm<CR>", { desc = "Floating" })
+map("n", "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
+map("n", "<leader>Tv", "<cmd>vsplit <cr>|<cmd> term<cr>i", { desc = "Vertical" })
+map("n", "<leader>Tw", "<cmd>lua _WTTR_TOGGLE()<cr>", { desc = "Weather" })
 
 -- Visual Mappings
 map("v", "<leader>o", ":<C-u>lua require('gpt.chat').send_to_gpt_refactor()<cr>", { desc = "OpenAI Refactor" })
