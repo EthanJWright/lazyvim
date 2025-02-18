@@ -140,11 +140,6 @@ map("n", "<leader>ms", "<cmd>Telescope marks theme=get_dropdown<CR>", { desc = "
 -- map("n", "<leader>md", "<cmd>lua require('harpoon.mark').clear_all()<CR>", { desc = "Delete All" })
 -- map("n", "<leader>mt", "<cmd>lua require('harpoon.mark').toggle_file()<CR>", { desc = "Toggle Mark" })
 
-map("n", "<leader>t;", function()
-  local neotest = require("neotest")
-  neotest.run.run({ strategy = "dap", adapter = "jest" })
-end, { desc = "Debug Nearest!" })
-
 -- c keymaps (cmdheight)
 map("n", "<leader>cc", "<cmd>set cmdheight=1<CR>", { desc = "Show" })
 map("n", "<leader>ch", "<cmd>set cmdheight=0<CR>", { desc = "Hide" })
