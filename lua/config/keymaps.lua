@@ -278,6 +278,8 @@ map(
   { desc = "Clean Completed" }
 )
 
+map("n", "<leader>rC", "<cmd>lua require('telescope').extensions.vstask.command()<cr>", { desc = "Run Command" })
+
 map(
   "n",
   "<leader>ri",
