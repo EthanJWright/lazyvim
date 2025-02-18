@@ -2,6 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local Util = require("lazyvim.util")
+local Terminal = require("snacks.terminal")
 
 vim.keymap.del("n", "<leader>fn")
 vim.keymap.del("n", "<leader>fT")
@@ -200,7 +201,7 @@ end, { desc = "Debug Current" })
 
 -- g keymaps (Git)
 map("n", "<leader>gg", function()
-  Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+  Terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
 end, { desc = "Lazygit (root dir)" })
 map("n", "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
 map("n", "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })
