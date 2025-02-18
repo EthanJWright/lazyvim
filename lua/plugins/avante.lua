@@ -9,7 +9,7 @@ return {
     auto_suggestions_provider = "claude",
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  build = "make",
+  build = "make BUILD_FROM_SOURCE=true",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "stevearc/dressing.nvim",
