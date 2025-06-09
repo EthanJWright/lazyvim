@@ -206,5 +206,6 @@ return {
       },
     })
     require("telescope").load_extension("egrepify")
+    require("telescope").load_extension("vstask")
   end,
 }

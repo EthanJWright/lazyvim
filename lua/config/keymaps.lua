@@ -172,6 +172,7 @@ map("n", "<leader>pm", "<cmd>ReachOpen marks<cr>", { desc = "Marks" })
 
 -- d keymaps (DiffView)
 map("n", "<leader>Dm", "<cmd>DiffviewOpen origin/main...HEAD<cr>", { desc = "Diff Main" })
+map("n", "<leader>Dd", "<cmd>DiffviewOpen origin/HEAD~1<cr>", { desc = "Diff Main" })
 map("n", "<leader>Dc", "<cmd>DiffviewClose<cr>", { desc = "Close Diff" })
 map("n", "<leader>DM", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diff Current with Main" })
 map("n", "<leader>Dh", "<cmd>DiffviewFileHistory<cr>", { desc = "File History" })
@@ -193,6 +194,8 @@ map("n", "<leader>td", function()
   local dap = require("custom.dap")
   dap.run_jest_debug_current_test()
 end, { desc = "Debug Current" })
+
+map("n", "<leader>dD", "<CDM>DapClearBreakpoints<CR>", { desc = "Clear All Breakpoints" })
 
 -- g keymaps (Git)
 map("n", "<leader>gg", function()
@@ -216,7 +219,7 @@ map("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Outline" })
 -- c keymaps (code lsp)
 map(
   "n",
-  "<leader>cO",
+  "<leader>cm",
   "<cmd>lua require('telescope.builtin').lsp_references({ file_ignore_patterns = { '%.spec.ts' } })<cr>",
   { desc = "Goto Non-Test References" }
 )
@@ -225,10 +228,6 @@ map("n", "<leader>cD", "<cmd>Telescope diagnostics<cr>", { desc = "Document Diag
 map("n", "<leader>cj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 map("n", "<leader>ck", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "Prev Diagnostic" })
 map("n", "<leader>ct", "<cmd>TroubleToggle<CR>", { desc = "Toggle Diagnostics Window" })
-map("n", "<leader>cm", function()
-  local it_compiles = require("it-compiles")
-  it_compiles.check()
-end, { desc = "Build Typescript and see errors" })
 
 map("n", "<leader>cq", function()
   local qf_exists = false
