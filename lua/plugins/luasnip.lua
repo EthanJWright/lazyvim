@@ -33,6 +33,7 @@ return {
       -- local conds_expand = require("luasnip.extras.conditions.expand")
 
       local random_name = require("../snip-functions/random_name")
+      local random_date = require("../snip-functions/random_date")
 
       -- examples found at https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua#L190
       -- docs found https://github.com/L3MON4D3/LuaSnip/tree/master
@@ -45,6 +46,16 @@ return {
         }, {
           dynamicNode(1, function()
             return snippetNode(nil, textNode(random_name()))
+          end),
+        }),
+        snippet({
+          trig = "randomdate",
+          name = "Random Date",
+          dscr = "Generate a UTC friendly random date.",
+          filetype = "all",
+        }, {
+          dynamicNode(1, function()
+            return snippetNode(nil, textNode(random_date()))
           end),
         }),
       })
