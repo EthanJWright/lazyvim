@@ -15,8 +15,17 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
     "ThePrimeagen/harpoon",
+    "folke/snacks.nvim",
   },
   config = function()
-    require("vstask").setup()
+    require("vstask").setup({
+      picker = "snacks", -- Use snacks.nvim picker instead of telescope
+      -- picker = "ui_select", -- Use snacks.nvim picker instead of telescope
+      -- ui_select_behaviors = {
+      --   tasks = "background_job", -- Default: run tasks in background
+      --   launches = "current", -- Default: run launches in current window
+      --   jobs = "current", -- Default: open jobs in current window
+      -- },
+    })
   end,
 }

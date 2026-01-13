@@ -8,14 +8,23 @@ return {
   { "navarasu/onedark.nvim" },
   { "ray-x/starry.nvim" },
   { "catppuccin/nvim" },
+  { "askfiy/visual_studio_code" },
   { "rose-pine/neovim", name = "rose-pine" },
+  { "serhez/teide.nvim" },
+  { "sontungexpt/witch", lazy = false, opts = {
+    dim_inactive = { true, level = 0.80 },
+  } },
   {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "tokyonight",
+      -- colorscheme = "teide",
+      colorscheme = "witch-dark",
       -- colorscheme = "catppuccin-mocha",
-      colorscheme = "kanagawa",
+      -- colorscheme = "kanagawa",
       -- colorscheme = "rose-pine",
+      -- colorscheme = "lytmode",
+      -- colorscheme = "visual_studio_code",
     },
   },
 }
