@@ -195,6 +195,11 @@ map("n", "<leader>td", function()
   dap.run_jest_debug_current_test()
 end, { desc = "Debug Current" })
 
+map("n", "<leader>mo", function()
+  local md = require("custom.markdown")
+  md.open_markdown_in_browser()
+end, { desc = "Open Markdown in Browser" })
+
 map("n", "<leader>dD", "<CDM>DapClearBreakpoints<CR>", { desc = "Clear All Breakpoints" })
 
 -- g keymaps (Git)
