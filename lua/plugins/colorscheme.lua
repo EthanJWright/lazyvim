@@ -11,15 +11,21 @@ return {
   { "askfiy/visual_studio_code" },
   { "rose-pine/neovim", name = "rose-pine" },
   { "serhez/teide.nvim" },
-  { "sontungexpt/witch", lazy = false, opts = {
-    dim_inactive = { true, level = 0.80 },
-  } },
+  {
+    "ember-theme/nvim",
+    name = "ember",
+    priority = 1000,
+    config = function()
+      require("ember").setup({ variant = "ember" })
+    end,
+  },
   {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "tokyonight",
       -- colorscheme = "teide",
-      colorscheme = "witch-dark",
+      colorscheme = "ember",
+      -- colorscheme = "witch-dark",
       -- colorscheme = "catppuccin-mocha",
       -- colorscheme = "kanagawa",
       -- colorscheme = "rose-pine",
